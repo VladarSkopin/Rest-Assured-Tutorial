@@ -32,7 +32,6 @@ public class TestTwo {
         int statusCode = rs.statusCode();
 
         Assert.assertEquals(statusCode, expectedStatusCodeNegative, "Expected status code = " + expectedStatusCodeNegative + ", actual = " + statusCode);
-
     }
 
 }
