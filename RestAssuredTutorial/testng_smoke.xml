@@ -13,6 +13,7 @@
             <class name="TestOne"/>
             <class name="TestTwo"/>
             <class name="TestThree"/>
+            <class name="TestFour"/>
         </classes>
     </test>
 </suite>
