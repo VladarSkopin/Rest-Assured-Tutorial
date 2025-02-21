@@ -14,6 +14,7 @@
             <class name="TestTwo"/>
             <class name="TestThree"/>
             <class name="TestFour"/>
+            <class name="TestFive"/>
         </classes>
     </test>
 </suite>
