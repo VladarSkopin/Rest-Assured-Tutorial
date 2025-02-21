@@ -39,7 +39,11 @@ public class TestFour {
 
         response.then()
                 .body(matchesXsdInClasspath("get_schema.xsd"))
-                .log().all();
+                .log().status()
+                .log().headers()
+                .log().body()
+                .log().cookies();
+                //.log().all();
 
         //String xmlResponse = response.getBody().asString();
 
