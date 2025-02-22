@@ -4,10 +4,8 @@ import io.restassured.http.Cookies;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import org.apache.http.protocol.ResponseContent;
 import org.testng.annotations.Test;
 
-import java.net.HttpCookie;
 import java.util.Map;
 
 public class TestOne {

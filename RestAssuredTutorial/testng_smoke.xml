@@ -12,8 +12,9 @@
         <classes>
             <class name="TestOne"/>
             <class name="TestTwo"/>
-            <class name="TestThree"/>
-            <class name="TestFour"/>
+            <class name="TestThreeHeaderFactory"/>
+            <class name="TestFourSchemaValidation"/>
+            <class name="TestFiveBodyParsing"/>
         </classes>
     </test>
 </suite>

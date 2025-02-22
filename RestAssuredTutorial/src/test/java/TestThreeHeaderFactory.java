@@ -1,5 +1,4 @@
 import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 import com.google.gson.Gson;
@@ -12,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class TestThree {
+public class TestThreeHeaderFactory {
 
     @Test(groups={"factory"})
     public void testHeaderFactory() {

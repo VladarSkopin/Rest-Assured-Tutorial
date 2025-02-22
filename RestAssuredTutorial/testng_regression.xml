@@ -12,7 +12,7 @@
         <classes>
             <class name="TestOne"/>
             <class name="TestTwo"/>
-            <class name="TestThree"/>
+            <class name="TestThreeHeaderFactory"/>
         </classes>
     </test>
 </suite>
