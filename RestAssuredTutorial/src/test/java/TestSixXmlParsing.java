@@ -26,13 +26,13 @@ public class TestSixXmlParsing {
                 .log().body()
                 .statusCode(200)
                 .header("Content-Type", "application/xml; charset=utf-8")
-                .body("root.state", equalTo("CAxxx"));
+                .body("root.state", equalTo("CA"));
 
     }
 
 
     @Test(groups = {"smoke"})
-    public void testParseXmlUsingXmlPathVariables() {
+    public void testParseXmlUsingXmlPathWithVariables() {
 
         baseURI = "https://mocktarget.apigee.net";
 
@@ -48,7 +48,15 @@ public class TestSixXmlParsing {
 
         XmlPath xmlPath = response.xmlPath();
 
+
+        String responseCity = xmlPath.getString("root.city");
+        String responseFirstName = xmlPath.getString("root.firstName");
+        String responseLastName = xmlPath.getString("root.lastName");
         String responseState = xmlPath.getString("root.state");
+
+        Assert.assertEquals(responseCity, "San Jose");
+        Assert.assertEquals(responseFirstName, "John");
+        Assert.assertEquals(responseLastName, "Doe");
         Assert.assertEquals(responseState, "CA");
     }
 

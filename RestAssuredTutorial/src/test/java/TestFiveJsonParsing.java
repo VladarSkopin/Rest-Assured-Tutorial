@@ -10,11 +10,11 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class TestFiveBodyParsing {
+public class TestFiveJsonParsing {
 
     @Ignore
     @Test(groups = {"smoke"})
-    public void testParseJsonUsingJsonPath() {
+    public void testParseJsonUsingImplicitJsonPath() {
 
         baseURI = "https://reqres.in";
 
@@ -36,7 +36,7 @@ public class TestFiveBodyParsing {
 
     @Ignore
     @Test(groups = {"smoke"})
-    public void testParseJsonUsingVariables() {
+    public void testParseJsonUsingJsonPathWithVariables() {
 
         baseURI = "https://reqres.in";
 
@@ -95,6 +95,7 @@ public class TestFiveBodyParsing {
                 "aqua sky",
                 "tigerlily",
                 "blue turquoise"};
+
 
         JSONArray jsArray = jsonObject.getJSONArray("data");
 

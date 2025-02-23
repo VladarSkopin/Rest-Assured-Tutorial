@@ -14,7 +14,8 @@
             <class name="TestTwo"/>
             <class name="TestThreeHeaderFactory"/>
             <class name="TestFourSchemaValidation"/>
-            <class name="TestFiveBodyParsing"/>
+            <class name="TestFiveJsonParsing"/>
+            <class name="TestSixXmlParsing"/>
         </classes>
     </test>
 </suite>
