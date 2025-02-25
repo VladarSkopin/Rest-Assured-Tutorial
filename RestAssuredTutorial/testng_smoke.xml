@@ -10,12 +10,12 @@
 
 
         <classes>
-            <class name="TestOne"/>
-            <class name="TestTwo"/>
-            <class name="TestThreeHeaderFactory"/>
-            <class name="TestFourSchemaValidation"/>
-            <class name="TestFiveJsonParsing"/>
-            <class name="TestSixXmlParsing"/>
+            <class name="basics.TestApiBasics"/>
+            <class name="basics.TestParametrization"/>
+            <class name="basics.TestHeaderFactory"/>
+            <class name="schema_validation.TestXsdSchemaValidation"/>
+            <class name="parsing_response.TestJsonParsing"/>
+            <class name="parsing_response.TestXmlParsing"/>
         </classes>
     </test>
 </suite>

@@ -1,3 +1,5 @@
+package schema_validation;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -7,7 +9,7 @@ import java.io.File;
 import static io.restassured.RestAssured.*;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
-public class TestSevenJsonSchemaValidation {
+public class TestJsonSchemaValidation {
 
     @Test(groups={"smoke"})
     public void testJsonSchemaValidation() {

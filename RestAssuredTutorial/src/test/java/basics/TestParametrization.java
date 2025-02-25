@@ -1,9 +1,11 @@
+package basics;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TestTwo {
+public class TestParametrization {
 
     String baseUrl = "https://reqres.in";
     String path = "/api/users";
