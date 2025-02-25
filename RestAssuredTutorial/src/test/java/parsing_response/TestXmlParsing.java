@@ -1,3 +1,5 @@
+package parsing_response;
+
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -9,7 +11,7 @@ import static org.hamcrest.Matchers.*;
 
 
 
-public class TestSixXmlParsing {
+public class TestXmlParsing {
 
     @Test(groups = {"smoke"})
     public void testParseXmlUsingImplicitXmlPath() {

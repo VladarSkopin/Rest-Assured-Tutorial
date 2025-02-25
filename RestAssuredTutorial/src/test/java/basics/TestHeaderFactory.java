@@ -1,7 +1,11 @@
+package basics;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 import com.google.gson.Gson;
+import helpers.BasicAuthHeaderFactory;
+import helpers.HeaderFactory;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -11,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class TestThreeHeaderFactory {
+public class TestHeaderFactory {
 
     @Test(groups={"factory"})
     public void testHeaderFactory() {

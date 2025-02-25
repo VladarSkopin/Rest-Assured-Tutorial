@@ -1,3 +1,5 @@
+package basics;
+
 import io.restassured.RestAssured;
 import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
@@ -8,12 +10,12 @@ import org.testng.annotations.Test;
 
 import java.util.Map;
 
-public class TestOne {
+public class TestApiBasics {
 
     String url_get_1 = "https://reqres.in/api/users?page=2";
 
     @Test(groups = {"smoke"})
-    public void test_api_basics() {
+    public void testApiBasics() {
 
         Response rs = RestAssured.get(url_get_1);
         System.out.println("Response = " + rs);  // io.restassured.internal.RestAssuredResponseImpl@3f049056

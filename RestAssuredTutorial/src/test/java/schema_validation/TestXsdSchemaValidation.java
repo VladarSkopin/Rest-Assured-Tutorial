@@ -1,3 +1,5 @@
+package schema_validation;
+
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 
@@ -5,22 +7,7 @@ import static io.restassured.matcher.RestAssuredMatchers.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-public class TestFourSchemaValidation {
-
-    /*
-    @Test(groups={"smoke"})
-    public void testJsonSchemaValidation() {
-
-        given()
-                .when()
-                .get("api/unknown/2")
-                .then()
-                .assertThat()
-                .body(matchesJsonSchemaInClassPath("post_schema.json"));  // TODO: "matchesJsonSchemaInClassPath" fails
-    }
-
-     */
-
+public class TestXsdSchemaValidation {
 
     @Test(groups = {"smoke"})
     public void testXsdSchemaValidation() {
@@ -36,10 +23,6 @@ public class TestFourSchemaValidation {
                 .log().headers()
                 .log().body()
                 .log().cookies();
-                //.log().all();
-
-        //String xmlResponse = response.getBody().asString();
-
 
     }
 }

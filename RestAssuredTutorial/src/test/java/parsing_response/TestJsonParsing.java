@@ -1,3 +1,5 @@
+package parsing_response;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONArray;
@@ -10,7 +12,7 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class TestFiveJsonParsing {
+public class TestJsonParsing {
 
     @Ignore
     @Test(groups = {"smoke"})

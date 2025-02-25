@@ -10,9 +10,9 @@
 
 
         <classes>
-            <class name="TestOne"/>
-            <class name="TestTwo"/>
-            <class name="TestThreeHeaderFactory"/>
+            <class name="basics.TestApiBasics"/>
+            <class name="basics.TestParametrization"/>
+            <class name="basics.TestHeaderFactory"/>
         </classes>
     </test>
 </suite>
