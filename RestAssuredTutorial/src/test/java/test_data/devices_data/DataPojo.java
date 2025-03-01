@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 
-@Data // Generates getters, setters, toString, equals, and hashCode
+@Data
 public class DataPojo {
-    private int year;
-    private double price;
+    private Integer year;
+    private Double price;
 
     @SerializedName("CPU model")
     private String cpuModel;

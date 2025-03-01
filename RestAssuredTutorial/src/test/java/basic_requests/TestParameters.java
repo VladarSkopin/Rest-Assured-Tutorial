@@ -1,4 +1,4 @@
-package basics;
+package basic_requests;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

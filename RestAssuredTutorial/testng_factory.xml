@@ -10,7 +10,7 @@
 
 
         <classes>
-            <class name="basics.TestHeaderFactory"/>
+            <class name="basic_requests.TestHeaderFactory"/>
         </classes>
     </test>
 </suite>

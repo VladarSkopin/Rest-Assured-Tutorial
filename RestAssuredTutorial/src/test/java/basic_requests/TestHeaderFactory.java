@@ -1,4 +1,4 @@
-package basics;
+package basic_requests;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
