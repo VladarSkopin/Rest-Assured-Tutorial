@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.*;
 
 public class TestJsonParsing {
 
-    @Ignore
+
     @Test(groups = {"smoke"})
     public void testParseJsonUsingImplicitJsonPath() {
 
@@ -36,7 +36,7 @@ public class TestJsonParsing {
                 .body("data[0].year", equalTo(2000));
     }
 
-    @Ignore
+
     @Test(groups = {"smoke"})
     public void testParseJsonUsingJsonPathWithVariables() {
 

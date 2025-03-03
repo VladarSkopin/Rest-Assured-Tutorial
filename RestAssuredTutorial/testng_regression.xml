@@ -13,6 +13,8 @@
             <class name="basic_requests.TestApiBasics"/>
             <class name="basic_requests.TestParametrization"/>
             <class name="basic_requests.TestHeaderFactory"/>
+            <class name="basic_requests.TestPostRequests"/>
+            <class name="parsing_response.TestParsingUsingPojo"/>
         </classes>
     </test>
 </suite>
