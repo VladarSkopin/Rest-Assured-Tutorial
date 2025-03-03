@@ -11,11 +11,12 @@
 
         <classes>
             <class name="basic_requests.TestApiBasics"/>
-            <class name="basic_requests.TestParametrization"/>
+            <class name="basic_requests.TestParameters"/>
             <class name="basic_requests.TestHeaderFactory"/>
-            <class name="schema_validation.TestXsdSchemaValidation"/>
             <class name="parsing_response.TestJsonParsing"/>
             <class name="parsing_response.TestXmlParsing"/>
+            <class name="schema_validation.TestJsonSchemaValidation"/>
+            <class name="schema_validation.TestXsdSchemaValidation"/>
         </classes>
     </test>
 </suite>

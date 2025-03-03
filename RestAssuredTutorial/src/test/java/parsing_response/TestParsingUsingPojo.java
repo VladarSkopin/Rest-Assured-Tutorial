@@ -6,7 +6,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import test_data.ClientPojo;
 import test_data.devices_data.DataPojo;
@@ -21,7 +20,7 @@ import static io.restassured.RestAssured.*;
 
 public class TestParsingUsingPojo {
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testDeserializationWithPojo() {
 
@@ -56,7 +55,7 @@ public class TestParsingUsingPojo {
         Assert.assertEquals(clientRsState, "CA");
     }
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testDeserializationWithNestedPojo() {
 
