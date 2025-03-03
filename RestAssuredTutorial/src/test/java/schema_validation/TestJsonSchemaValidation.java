@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import java.io.File;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.lessThan;
+
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class TestJsonSchemaValidation {
@@ -31,8 +33,9 @@ public class TestJsonSchemaValidation {
                 .header("Content-Type", "application/json; charset=utf-8")
                 .header("Server", "cloudflare")
                 .assertThat()
-                .body(JsonSchemaValidator.matchesJsonSchema(schemaFile));
-                //.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("post_schema.json"));
+                .body(JsonSchemaValidator.matchesJsonSchema(schemaFile))
+                //.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("post_schema.json"))
+                .time(lessThan(3000L));
 
     }
 

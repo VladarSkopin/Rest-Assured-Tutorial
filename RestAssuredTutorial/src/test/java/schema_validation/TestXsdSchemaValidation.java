@@ -2,8 +2,8 @@ package schema_validation;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.lessThan;
 
-// import io.restassured.module.jsv.JsonSchemaValidator;  // "module" cannot be found
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
@@ -22,7 +22,7 @@ public class TestXsdSchemaValidation {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .log().cookies();
+                .time(lessThan(3000L));
 
     }
 }

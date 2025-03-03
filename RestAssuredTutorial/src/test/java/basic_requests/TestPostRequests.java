@@ -23,10 +23,11 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.lessThan;
 
 public class TestPostRequests {
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testPostRequestWithPojo() {
 
@@ -58,11 +59,12 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
     }
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testPostRequestWithNestedPojo() {
 
@@ -115,11 +117,12 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
     }
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testPostRequestWithExternalFile() throws IOException {
 
@@ -148,7 +151,8 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
     }
 
@@ -191,7 +195,8 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
 
     }
