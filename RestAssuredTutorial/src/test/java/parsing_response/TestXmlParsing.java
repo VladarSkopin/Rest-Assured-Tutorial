@@ -28,7 +28,8 @@ public class TestXmlParsing {
                 .log().body()
                 .statusCode(200)
                 .header("Content-Type", "application/xml; charset=utf-8")
-                .body("root.state", equalTo("CA"));
+                .body("root.state", equalTo("CA"))
+                .time(lessThan(3000L));
 
     }
 
@@ -45,7 +46,8 @@ public class TestXmlParsing {
         response.then()
                 .log().status()
                 .log().headers()
-                .log().body();
+                .log().body()
+                .time(lessThan(3000L));
 
 
         XmlPath xmlPath = response.xmlPath();

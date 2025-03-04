@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.lessThan;
 
 public class TestParsingUsingPojo {
 
@@ -37,7 +38,8 @@ public class TestParsingUsingPojo {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
         Gson gson = new Gson();
 
@@ -74,7 +76,8 @@ public class TestParsingUsingPojo {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
         Gson gson = new Gson();
 
@@ -121,7 +124,8 @@ public class TestParsingUsingPojo {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
         Gson gson = new Gson();
 

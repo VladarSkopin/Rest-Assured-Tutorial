@@ -1,5 +1,15 @@
 [
   {
+    "id": 1000,
+    "username": "Kitten",
+    "firstName": "Giang",
+    "lastName": "Huong",
+    "email": "gianglove@gmail.com",
+    "password": "0987",
+    "phone": "999555777",
+    "userStatus": 0
+  },
+  {
     "id": 999,
     "username": "Kitty",
     "firstName": "Yongzheng",

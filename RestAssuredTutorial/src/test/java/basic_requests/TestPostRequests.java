@@ -1,10 +1,10 @@
 package basic_requests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import test_data.petstore.CategoryPojo;
@@ -13,21 +13,21 @@ import test_data.petstore.PetOrderPojo;
 import test_data.petstore.TagPojo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.lessThan;
 
 public class TestPostRequests {
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testPostRequestWithPojo() {
 
@@ -59,11 +59,12 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
     }
 
-    @Ignore
+
     @Test(groups = {"regression"})
     public void testPostRequestWithNestedPojo() {
 
@@ -116,7 +117,8 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
     }
 
@@ -133,7 +135,6 @@ public class TestPostRequests {
         String jsonFilePath = "src/test/resources/createWithArray.json";
         String jsonBody = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
 
-        // put the JSON in the request body and send it to server
         RequestSpecification request = given()
                 .contentType(ContentType.JSON)
                 //.body(fileRq)
@@ -150,46 +151,52 @@ public class TestPostRequests {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
-
+                .statusCode(200)
+                .time(lessThan(3000L));
 
     }
 
 
-    @Ignore
+
     @Test(groups = {"regression"})
-    public void testPostRequestWithInjectedExternalFile() throws FileNotFoundException {
+    public void testPostRequestWithModifiedExternalFile() throws IOException {
 
         // https://petstore.swagger.io/v2/user/createWithArray
 
         baseURI = "https://petstore.swagger.io";
 
-        File fileRq = new File("src/test/resources/createWithArray.json");
+        String jsonFilePath = "src/test/resources/createWithArray.json";
+        String jsonBody = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
 
-        FileReader fileReader = new FileReader(fileRq);
+        // Parse the JSON into a list of Maps
+        Gson gson = new Gson();
+        List<Map<String, Object>> jsonList = gson.fromJson(jsonBody, new TypeToken<List<Map<String, Object>>>() {}.getType());
 
-        JSONTokener jsonTokener = new JSONTokener(fileReader);
+        // Modify a specify value in JSON
+        Map<String, Object> firstUser = jsonList.get(0);  // Get the first user in the array
+        firstUser.put("username", "Sunlight");  // Change the username
+        firstUser.put("userStatus", 0);  // Change the status
 
-        // parse to JSON object
-        JSONObject jsonRq = new JSONObject(jsonTokener);
+        // Convert the modified List back to a JSON string
+        String modifiedJsonBody = gson.toJson(jsonList);
 
-        // put the JSON in the request body and send it to server
         RequestSpecification request = given()
                 .contentType(ContentType.JSON)
-                .body(jsonRq);
+                .body(modifiedJsonBody)
+                .log().uri()
+                .log().headers()
+                .log().body();
 
         Response response = request
                 .when()
-                .log().uri()
-                .log().headers()
-                .log().body()
                 .post("v2/user/createWithArray");
 
         response.then()
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
 
 
     }

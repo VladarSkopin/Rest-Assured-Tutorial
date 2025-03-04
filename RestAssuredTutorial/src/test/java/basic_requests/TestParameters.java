@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.lessThan;
 
 public class TestParameters {
 
@@ -28,7 +29,8 @@ public class TestParameters {
                 .log().status()
                 .log().headers()
                 .log().body()
-                .statusCode(200);
+                .statusCode(200)
+                .time(lessThan(3000L));
     }
 
 }

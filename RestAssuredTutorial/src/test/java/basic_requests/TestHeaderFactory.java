@@ -29,7 +29,7 @@ public class TestHeaderFactory {
                 .basePath("/api");
 
         Response response = request.get("users?page=2");
-        response.then().statusCode(200);
+        response.then().statusCode(200).time(lessThan(3000L));;
     }
 
 
@@ -45,7 +45,8 @@ public class TestHeaderFactory {
                 //.body("data.first_name", hasItems("Sasha", "Michael", "Rachel"))
                 .body("data.first_name", hasItems("Michael", "Rachel"))
                 .body("data[1].avatar", containsString("-image.jpg"))
-                .log().all();
+                .log().all()
+                .time(lessThan(3000L));
     }
 
 
@@ -84,7 +85,8 @@ public class TestHeaderFactory {
                 .body("name", equalTo(name))
                 .body("job", equalTo(job))
                 .body("id", notNullValue())
-                .log().all();
+                .log().all()
+                .time(lessThan(3000L));
 
     }
 }
