@@ -19,8 +19,8 @@ public class TestParameters {
 
         Response response = given()
                 .contentType(ContentType.JSON)
-                .pathParam("get_users_path", "users")  // path parameters
-                .queryParam("page", 2)  // query parameters
+                .pathParam("get_users_path", "users")  // path parameters  === api/users
+                .queryParam("page", 2)  // query parameters  === ?page=2
                 .log().uri()
                 .when()
                 .get("api/{get_users_path}");

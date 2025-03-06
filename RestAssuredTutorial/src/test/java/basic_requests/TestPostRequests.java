@@ -1,18 +1,17 @@
 package basic_requests;
 
+import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import test_data.petstore.CategoryPojo;
 import test_data.petstore.PetOrderCategoryTagPojo;
 import test_data.petstore.PetOrderPojo;
 import test_data.petstore.TagPojo;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,6 +26,7 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class TestPostRequests {
 
+    Faker faker = new Faker();
 
     @Test(groups = {"regression"})
     public void testPostRequestWithPojo() {
@@ -130,8 +130,6 @@ public class TestPostRequests {
 
         baseURI = "https://petstore.swagger.io";
 
-        File fileRq = new File("src/test/resources/createWithArray.json");
-
         String jsonFilePath = "src/test/resources/createWithArray.json";
         String jsonBody = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
 
@@ -174,7 +172,12 @@ public class TestPostRequests {
 
         // Modify a specify value in JSON
         Map<String, Object> firstUser = jsonList.get(0);  // Get the first user in the array
-        firstUser.put("username", "Sunlight");  // Change the username
+        firstUser.put("username", faker.name().username());  // Change the username
+        firstUser.put("firstName", faker.animal().name());
+        firstUser.put("lastName", faker.funnyName().name());
+        firstUser.put("email", faker.internet().emailAddress());
+        firstUser.put("password", faker.internet().password());
+        firstUser.put("phone", faker.phoneNumber().cellPhone());
         firstUser.put("userStatus", 0);  // Change the status
 
         // Convert the modified List back to a JSON string

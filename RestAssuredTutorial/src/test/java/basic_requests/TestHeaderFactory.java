@@ -29,7 +29,7 @@ public class TestHeaderFactory {
                 .basePath("/api");
 
         Response response = request.get("users?page=2");
-        response.then().statusCode(200).time(lessThan(3000L));;
+        response.then().statusCode(200).time(lessThan(3000L));
     }
 
 
