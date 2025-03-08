@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Database Tests">
+    <test name="Database MySQL Tests">
+        <groups>
+            <run>
+                <include name="db"/>
+            </run>
+        </groups>
+
+
+        <classes>
+            <class name="database_tests.TestDatabaseQueries"/>
+        </classes>
+    </test>
+</suite>
