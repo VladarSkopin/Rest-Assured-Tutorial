@@ -34,7 +34,6 @@ public class TestDatabaseQueries {
 
         try {
             if (resultSet.next()) {
-
                 String dbClientShortName = resultSet.getString("title_short");
                 String dbClientLongName = resultSet.getString("title_long");
                 Date dbCreated = resultSet.getDate("created");
@@ -44,6 +43,38 @@ public class TestDatabaseQueries {
                 Assert.assertEquals(dbCreated, expectedClientCreated);
             } else {
                 Assert.fail("Client " + expectedClientLongName + " not found in the database");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test(groups = {"db"})
+    public void testFinancialDataDbConsistency() {
+
+        String clientCommonId = "'MK-123'";
+        // expected db fields in alex.financial_data table
+        String expectedCurrency = "RUB";
+        int expectedAmount = 999999;
+
+        int clientYear = 2021;
+        String clientQuarter = "'Q1'";
+
+        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM financial_data "
+                + "WHERE client_common_id = " + clientCommonId
+                + " AND year = " + clientYear
+                + " AND quarter = " + clientQuarter);
+
+        try {
+            if (resultSet.next()) {
+                String dbCurrency = resultSet.getString("currency");
+                int dbAmount = resultSet.getInt("amount");
+
+                Assert.assertEquals(dbCurrency, expectedCurrency);
+                Assert.assertEquals(dbAmount, expectedAmount);
+            } else {
+                Assert.fail("Financial data for client " + clientCommonId + " not found in the database");
             }
         } catch (Exception e) {
             e.printStackTrace();
