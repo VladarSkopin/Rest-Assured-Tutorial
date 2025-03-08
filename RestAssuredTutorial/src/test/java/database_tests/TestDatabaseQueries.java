@@ -4,6 +4,7 @@ import helpers.DatabaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 
 
@@ -20,23 +21,27 @@ public class TestDatabaseQueries {
 
 
     @Test(groups = {"db"})
-    public void testApiAndDatabase() {
+    public void testClientDbConsistency() {
 
-        String expectedClientGeneralId = "MK-123";
+        String clientGeneralId = "'MK-123'";
+        // expected db fields in alex.clients table
         String expectedClientShortName = "Sber";
         String expectedClientLongName = "PAO Sberbank of Russia";
+        Date expectedClientCreated = Date.valueOf("2023-12-06");
 
-        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM clients WHERE id = 1");  // TODO: add WHERE clientGeneralId + Assert "created" field
+
+        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM clients WHERE client_general_id = " + clientGeneralId);
 
         try {
             if (resultSet.next()) {
-                String dbClientGeneralId = resultSet.getString("client_general_id");
+
                 String dbClientShortName = resultSet.getString("title_short");
                 String dbClientLongName = resultSet.getString("title_long");
+                Date dbCreated = resultSet.getDate("created");
 
-                Assert.assertEquals(dbClientGeneralId, expectedClientGeneralId);
                 Assert.assertEquals(dbClientShortName, expectedClientShortName);
                 Assert.assertEquals(dbClientLongName, expectedClientLongName);
+                Assert.assertEquals(dbCreated, expectedClientCreated);
             } else {
                 Assert.fail("Client " + expectedClientLongName + " not found in the database");
             }
