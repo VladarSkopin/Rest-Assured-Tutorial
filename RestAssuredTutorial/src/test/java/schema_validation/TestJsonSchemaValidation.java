@@ -34,12 +34,9 @@ public class TestJsonSchemaValidation {
                 .header("Server", "cloudflare")
                 .assertThat()
                 .body(JsonSchemaValidator.matchesJsonSchema(schemaFile))
-                //.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("post_schema.json"))
                 .time(lessThan(3000L));
 
     }
-
-
 
 
 }

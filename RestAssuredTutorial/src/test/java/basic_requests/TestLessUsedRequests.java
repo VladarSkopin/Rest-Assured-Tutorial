@@ -1,5 +1,6 @@
 package basic_requests;
 
+import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 import helpers.BasicAuthHeaderFactory;
 import helpers.HeaderFactory;
@@ -19,6 +20,7 @@ public class TestLessUsedRequests {
     HeaderFactory headerFactory = new BasicAuthHeaderFactory("cfbadministrator");
     Headers headers = headerFactory.createHeaders();
 
+    Faker faker = new Faker();
 
     @Test(groups = {"smoke"})
     public void testDeleteRequest() {
@@ -44,12 +46,12 @@ public class TestLessUsedRequests {
 
         Map<String, Object> map = new HashMap<>();
         map.put("id", 0);
-        map.put("username", "garrett");
-        map.put("firstName", "william");
-        map.put("lastName", "garrett");
-        map.put("email", "idonthaveany@yahoo.com");
-        map.put("password", "1234");
-        map.put("phone", "0987123654");
+        map.put("username", faker.yoda().quote());
+        map.put("firstName", faker.name().firstName());
+        map.put("lastName", faker.name().lastName());
+        map.put("email", faker.internet().emailAddress());
+        map.put("password", faker.internet().password());
+        map.put("phone", faker.chuckNorris().fact());
 
 
         Gson gson = new Gson();
@@ -60,6 +62,7 @@ public class TestLessUsedRequests {
                 .headers(headers)
                 .body(jsonPayload)
                 .when()
+                .log().body()
                 .put("/v2/user/Garrett");
 
         response.then()
