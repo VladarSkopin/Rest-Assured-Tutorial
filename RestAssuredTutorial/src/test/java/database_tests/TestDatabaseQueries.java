@@ -1,5 +1,6 @@
 package database_tests;
 
+import helpers.DatabaseConfig;
 import helpers.DatabaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -10,9 +11,9 @@ import java.sql.ResultSet;
 
 public class TestDatabaseQueries {
 
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/alextest";
-    private static final String DB_USER = "alex";
-    private static final String DB_PASSWORD = "_K2Vq*SbuT/$t*w";
+    private static final String DB_URL = DatabaseConfig.getDbUrl();
+    private static final String DB_USER = DatabaseConfig.getDbUsername();
+    private static final String DB_PASSWORD = DatabaseConfig.getDbPassword();
 
     @BeforeTest(groups = {"db"})
     public void setUp() {

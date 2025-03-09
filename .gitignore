@@ -56,6 +56,9 @@ reports/
 extent-reports/
 testng-results.xml
 
+# Ignore configuration files
+config.properties
+application.properties
 
 # Miscellaneous
 .env
