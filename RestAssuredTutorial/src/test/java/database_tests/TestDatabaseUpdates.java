@@ -1,10 +1,10 @@
 package database_tests;
 
+import helpers.DatabaseConfig;
 import helpers.DatabaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.sql.Connection;
@@ -15,9 +15,9 @@ import java.sql.SQLException;
 
 public class TestDatabaseUpdates {
 
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/alextest";
-    private static final String DB_USER = "alex";
-    private static final String DB_PASSWORD = "_K2Vq*SbuT/$t*w";
+    private static final String DB_URL = DatabaseConfig.getDbUrl();
+    private static final String DB_USER = DatabaseConfig.getDbUsername();
+    private static final String DB_PASSWORD = DatabaseConfig.getDbPassword();
     private Connection connection;
 
     @BeforeTest(groups = {"db"})
@@ -74,10 +74,21 @@ public class TestDatabaseUpdates {
 
 
     // TODO: implement COUNT, INSERT and DELETE
-    @Ignore
     @Test(groups = {"db"})
     public void testDbInsertionDeletion() {
 
+
+        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM financial_data");
+
+        try {
+            if (resultSet.next()) {
+
+            } else {
+                Assert.fail("Financial data not found in the database");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
