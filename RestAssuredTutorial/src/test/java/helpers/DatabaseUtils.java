@@ -22,6 +22,10 @@ public class DatabaseUtils {
         }
     }
 
+    public static Connection getConnection() {
+        return connection;
+    }
+
     // Method to execute a query (SELECT)
     public static ResultSet executeQuery(String query) {
         try {

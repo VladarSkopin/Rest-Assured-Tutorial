@@ -11,6 +11,7 @@
 
         <classes>
             <class name="database_tests.TestDatabaseQueries"/>
+            <class name="database_tests.TestDatabaseUpdates"/>
         </classes>
     </test>
 </suite>
