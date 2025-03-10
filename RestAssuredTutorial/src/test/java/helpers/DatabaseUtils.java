@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class DatabaseUtils {
 
@@ -37,6 +38,28 @@ public class DatabaseUtils {
     }
 
     // Method to execute an update (INSERT, UPDATE, DELETE)
+    public static int executeUpdate(String query, Object... params) {
+        int rowsAffected = 0;
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+
+            // Set parameters for the PreparedStatement
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+
+            // Execute the update
+            rowsAffected = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsAffected;
+    }
+
+    // General method to execute ANY update SQL statement
     public static int executeUpdate(String query) {
         int rowsAffected = 0;
         try {
@@ -45,6 +68,25 @@ public class DatabaseUtils {
             e.printStackTrace();
         }
         return rowsAffected;
+    }
+
+    public static int getRowCount(String tableName) {
+        int rowCount = 0;
+        String query = "SELECT COUNT(*) FROM " + tableName;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                rowCount = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowCount;
     }
 
 
