@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseUtils {
 
@@ -87,6 +89,24 @@ public class DatabaseUtils {
         }
 
         return rowCount;
+    }
+
+    public static List<Object> getColumnValues(String query, String columnName) {
+        List<Object> values = new ArrayList<>();
+
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                values.add(resultSet.getObject(columnName));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return values;
     }
 
 
