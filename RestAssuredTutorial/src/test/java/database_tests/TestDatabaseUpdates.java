@@ -69,27 +69,49 @@ public class TestDatabaseUpdates {
             }
         }
 
-
     }
 
 
-    // TODO: implement COUNT, INSERT and DELETE
     @Test(groups = {"db"})
     public void testDbInsertionDeletion() {
 
+        // Clear the old data first, just in case
+        String clearQuery = "DELETE FROM financial_data WHERE client_common_id = ?";
+        int rowsCleared = DatabaseUtils.executeUpdate(clearQuery, "MK-XXX");
+        // TODO: Log cleared data at the start of the test
 
-        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM financial_data");
 
-        try {
-            if (resultSet.next()) {
+        String tableName = "financial_data";
 
-            } else {
-                Assert.fail("Financial data not found in the database");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Before insertion, the number of rows should be = 20
+        int rowCountBeforeInsertion = DatabaseUtils.getRowCount(tableName);
+        // TODO: Log current rowCount - "Row count BEFORE adding financial data"
 
+        // Insert new financial data
+        String insertQuery = "INSERT INTO financial_data (client_common_id, created, currency, amount, year, quarter) VALUES (?, ?, ?, ?, ?, ?)";
+        int rowsInserted = DatabaseUtils.executeUpdate(insertQuery, "MK-XXX", "2020-07-01 00:00:00", "RUB", 777555, 2020, "Q1");
+        rowsInserted += DatabaseUtils.executeUpdate(insertQuery, "MK-XXX", "2020-07-01 00:00:00", "RUB", 777555, 2020, "Q2");
+        rowsInserted += DatabaseUtils.executeUpdate(insertQuery, "MK-XXX", "2020-07-01 00:00:00", "RUB", 777555, 2020, "Q3");
+        rowsInserted += DatabaseUtils.executeUpdate(insertQuery, "MK-XXX", "2020-07-01 00:00:00", "RUB", 777555, 2020, "Q4");
+        rowsInserted += DatabaseUtils.executeUpdate(insertQuery, "MK-XXX", "2020-07-01 00:00:00", "RUB", 777555, 2020, "Q1");
+        Assert.assertEquals(rowsInserted, 5, "INSERTED rows count does not match the expected value");
+
+        // After insertion, the number of rows should be 25
+        int rowCountAfterInsertion = DatabaseUtils.getRowCount(tableName);
+        // TODO: Log current rowCount - "Row count AFTER adding financial data"
+        //int expectedRowCount = rowCount + rowsInserted;
+        int expectedRowCount = rowCountBeforeInsertion + rowsInserted;
+        Assert.assertEquals(rowCountAfterInsertion, expectedRowCount, "Row count AFTER adding financial data does not match the expected value");
+        
+        // Delete the new financial data
+        String deleteQuery = "DELETE FROM financial_data WHERE client_common_id = ?";
+        int rowsDeleted = DatabaseUtils.executeUpdate(deleteQuery, "MK-XXX");
+        Assert.assertEquals(rowsDeleted, 5, "DELETED rows count does not match the expected value");
+
+        // After deletion, the number of rows should be back to 20
+        int rowCountAfterDeletion = DatabaseUtils.getRowCount(tableName);
+        // TODO: Log current rowCount - "Row count AFTER DELETING financial data"
+        Assert.assertEquals(rowCountAfterDeletion, rowCountBeforeInsertion, "Row count AFTER DELETING financial data does not match the expected value");
     }
 
     @AfterTest(groups = {"db"})
