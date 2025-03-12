@@ -39,20 +39,6 @@ public class DatabaseUtils {
         return instance;
     }
 
-    /* NO LONGER NEEDED
-    public static void connectToDatabase(String url, String username, String password) {
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    */
-
-    public Connection getConnection() {
-        return connection;
-    }
 
     // Method to execute a query (SELECT) with parameters
     public ResultSet executeQuery(String query, Object... params) {
@@ -122,7 +108,6 @@ public class DatabaseUtils {
         String query = "SELECT COUNT(*) FROM " + tableName;
 
         try {
-            Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -140,7 +125,6 @@ public class DatabaseUtils {
         List<Object> values = new ArrayList<>();
 
         try {
-            Connection connection = getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 

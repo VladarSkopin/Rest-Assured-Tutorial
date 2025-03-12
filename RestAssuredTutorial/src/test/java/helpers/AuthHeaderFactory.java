@@ -11,6 +11,7 @@ public class AuthHeaderFactory implements HeaderFactory {
         this.username = username;
     }
 
+    // TODO: return different Content-Type depending on String parameter provided from the outside
     @Override
     public Headers createHeaders() {
         return new Headers(
