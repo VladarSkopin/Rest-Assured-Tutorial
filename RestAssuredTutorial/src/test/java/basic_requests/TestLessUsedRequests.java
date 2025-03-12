@@ -2,7 +2,7 @@ package basic_requests;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
-import helpers.BasicAuthHeaderFactory;
+import helpers.AuthHeaderFactory;
 import helpers.HeaderFactory;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class TestLessUsedRequests {
 
-    HeaderFactory headerFactory = new BasicAuthHeaderFactory("cfbadministrator");
+    HeaderFactory headerFactory = new AuthHeaderFactory("cfbadministrator");
     Headers headers = headerFactory.createHeaders();
 
     Faker faker = new Faker();

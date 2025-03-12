@@ -4,10 +4,10 @@ import io.restassured.http.Header;
 import io.restassured.http.Headers;
 
 
-public class BasicAuthHeaderFactory implements HeaderFactory {
+public class AuthHeaderFactory implements HeaderFactory {
     private final String username;
 
-    public BasicAuthHeaderFactory(String username) {
+    public AuthHeaderFactory(String username) {
         this.username = username;
     }
 

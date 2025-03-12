@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 import com.google.gson.Gson;
-import helpers.BasicAuthHeaderFactory;
+import helpers.AuthHeaderFactory;
 import helpers.HeaderFactory;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -19,7 +19,7 @@ public class TestHeaderFactory {
 
     @Test(groups={"factory"})
     public void testHeaderFactory() {
-        HeaderFactory headerFactory = new BasicAuthHeaderFactory("cfbadministrator");
+        HeaderFactory headerFactory = new AuthHeaderFactory("cfbadministrator");
 
         Headers headers = headerFactory.createHeaders();
 
@@ -69,7 +69,7 @@ public class TestHeaderFactory {
 
         baseURI = "https://reqres.in/api";
 
-        HeaderFactory headerFactory = new BasicAuthHeaderFactory("cfbadministrator");
+        HeaderFactory headerFactory = new AuthHeaderFactory("cfbadministrator");
         Headers headers = headerFactory.createHeaders();
 
 
