@@ -11,41 +11,70 @@ import java.util.List;
 
 public class DatabaseUtils {
 
-    private static Connection connection;
-    private static Statement statement;
-    private static ResultSet resultSet;
+    private static DatabaseUtils instance;
+
+    private Connection connection;
 
 
-    public static void connectToDatabase(String url, String username, String password) {
+    // Private constructor to prevent instantiation
+    private DatabaseUtils() {
+        final String DB_URL = DatabaseConfig.getDbUrl();
+        final String DB_USER = DatabaseConfig.getDbUsername();
+        final String DB_PASSWORD = DatabaseConfig.getDbPassword();
+
         try {
-            connection = DriverManager.getConnection(url, username, password);
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            System.out.println("Database connection established.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static Connection getConnection() {
-        return connection;
+
+    // Thread-safe method to get the Singleton instance
+    public static synchronized DatabaseUtils getInstance() {
+        if (instance == null) {
+            instance = new DatabaseUtils();
+        }
+        return instance;
     }
 
-    // Method to execute a query (SELECT)
-    public static ResultSet executeQuery(String query) {
+
+    // Method to execute a query (SELECT) with parameters
+    public ResultSet executeQuery(String query, Object... params) {
+        ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+
+            resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultSet;
     }
 
-    // Method to execute an update (INSERT, UPDATE, DELETE)
-    public static int executeUpdate(String query, Object... params) {
-        int rowsAffected = 0;
+    // Method to execute ANY query (SELECT)
+    public ResultSet executeQuery(String query) {
+        ResultSet resultSet = null;
         try {
-            Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
 
+    // Method to execute an update (INSERT, UPDATE, DELETE) with parameters
+    public int executeUpdate(String query, Object... params) {
+        int rowsAffected = 0;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             // Set parameters for the PreparedStatement
             for (int i = 0; i < params.length; i++) {
@@ -54,30 +83,31 @@ public class DatabaseUtils {
 
             // Execute the update
             rowsAffected = preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return rowsAffected;
     }
 
     // General method to execute ANY update SQL statement
-    public static int executeUpdate(String query) {
+    public int executeUpdate(String query) {
         int rowsAffected = 0;
+
         try {
-            rowsAffected = statement.executeUpdate(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            rowsAffected = preparedStatement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rowsAffected;
     }
 
-    public static int getRowCount(String tableName) {
+    public int getRowCount(String tableName) {
         int rowCount = 0;
         String query = "SELECT COUNT(*) FROM " + tableName;
 
         try {
-            Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -91,11 +121,10 @@ public class DatabaseUtils {
         return rowCount;
     }
 
-    public static List<Object> getColumnValues(String query, String columnName) {
+    public List<Object> getColumnValues(String query, String columnName) {
         List<Object> values = new ArrayList<>();
 
         try {
-            Connection connection = getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -110,11 +139,10 @@ public class DatabaseUtils {
     }
 
 
-    public static void closeConnection() {
+    public void closeConnection() {
         try {
-            if (resultSet != null) resultSet.close();
-            if (statement != null) statement.close();
             if (connection != null) connection.close();
+            System.out.println("Database connection closed.");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="All Tests">
+    <test name="All API Tests">
+        <groups>
+            <run>
+                <include name="db"/>
+                <include name="factory"/>
+                <include name="regression"/>
+                <include name="smoke"/>
+            </run>
+        </groups>
+
+
+        <classes>
+            <class name="database_tests.TestDatabaseQueries"/>
+            <class name="database_tests.TestDatabaseUpdates"/>
+            <class name="database_tests.TestDatabaseAdditionalHelpers"/>
+            <class name="basic_requests.TestHeaderFactory"/>
+            <class name="basic_requests.TestApiBasics"/>
+            <class name="basic_requests.TestParametrization"/>
+            <class name="basic_requests.TestHeaderFactory"/>
+            <class name="basic_requests.TestPostRequests"/>
+            <class name="parsing_response.TestParsingUsingPojo"/>
+            <class name="basic_requests.TestApiBasics"/>
+            <class name="basic_requests.TestParameters"/>
+            <class name="basic_requests.TestHeaderFactory"/>
+            <class name="parsing_response.TestJsonParsing"/>
+            <class name="parsing_response.TestXmlParsing"/>
+            <class name="schema_validation.TestJsonSchemaValidation"/>
+            <class name="schema_validation.TestXsdSchemaValidation"/>
+        </classes>
+    </test>
+</suite>

@@ -1,6 +1,5 @@
 package database_tests;
 
-import helpers.DatabaseConfig;
 import helpers.DatabaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -11,13 +10,11 @@ import java.sql.ResultSet;
 
 public class TestDatabaseQueries {
 
-    private static final String DB_URL = DatabaseConfig.getDbUrl();
-    private static final String DB_USER = DatabaseConfig.getDbUsername();
-    private static final String DB_PASSWORD = DatabaseConfig.getDbPassword();
+    private DatabaseUtils dbUtils;
 
-    @BeforeTest(groups = {"db"})
+    @BeforeSuite(groups = {"db"})
     public void setUp() {
-        DatabaseUtils.connectToDatabase(DB_URL, DB_USER, DB_PASSWORD);
+        dbUtils = DatabaseUtils.getInstance();
     }
 
 
@@ -31,7 +28,7 @@ public class TestDatabaseQueries {
         Date expectedClientCreated = Date.valueOf("2023-12-06");
 
 
-        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM clients WHERE client_general_id = " + clientGeneralId);
+        ResultSet resultSet = dbUtils.executeQuery("SELECT * FROM clients WHERE client_general_id = " + clientGeneralId);
 
         try {
             if (resultSet.next()) {
@@ -39,9 +36,9 @@ public class TestDatabaseQueries {
                 String dbClientLongName = resultSet.getString("title_long");
                 Date dbCreated = resultSet.getDate("created");
 
-                Assert.assertEquals(dbClientShortName, expectedClientShortName);
-                Assert.assertEquals(dbClientLongName, expectedClientLongName);
-                Assert.assertEquals(dbCreated, expectedClientCreated);
+                Assert.assertEquals(dbClientShortName, expectedClientShortName, "Short name for client [ " + clientGeneralId + " ] did not match");
+                Assert.assertEquals(dbClientLongName, expectedClientLongName, "Long name for client [ " + clientGeneralId + " ] did not match");
+                Assert.assertEquals(dbCreated, expectedClientCreated, "Date for client [ " + clientGeneralId + " ] did not match");
             } else {
                 Assert.fail("Client " + expectedClientLongName + " not found in the database");
             }
@@ -62,7 +59,7 @@ public class TestDatabaseQueries {
         int clientYear = 2021;
         String clientQuarter = "'Q1'";
 
-        ResultSet resultSet = DatabaseUtils.executeQuery("SELECT * FROM financial_data "
+        ResultSet resultSet = dbUtils.executeQuery("SELECT * FROM financial_data "
                 + "WHERE client_common_id = " + clientCommonId
                 + " AND year = " + clientYear
                 + " AND quarter = " + clientQuarter);
@@ -72,10 +69,10 @@ public class TestDatabaseQueries {
                 String dbCurrency = resultSet.getString("currency");
                 int dbAmount = resultSet.getInt("amount");
 
-                Assert.assertEquals(dbCurrency, expectedCurrency);
-                Assert.assertEquals(dbAmount, expectedAmount);
+                Assert.assertEquals(dbCurrency, expectedCurrency, "Currency for client [ " + clientCommonId + " ] did not match");
+                Assert.assertEquals(dbAmount, expectedAmount, "Money amount for client [ " + clientCommonId + " ] did not match");
             } else {
-                Assert.fail("Financial data for client " + clientCommonId + " not found in the database");
+                Assert.fail("Financial data for client [ " + clientCommonId + " ] not found in the database");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,9 +80,9 @@ public class TestDatabaseQueries {
     }
 
 
-    @AfterTest(groups = {"db"})
+    @AfterSuite(groups = {"db"})
     public void tearDown() {
-        DatabaseUtils.closeConnection();
+        dbUtils.closeConnection();
     }
 
 

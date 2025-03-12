@@ -51,10 +51,10 @@ public class TestParsingUsingPojo {
         String clientRsCity = clientRs.getCity();
         String clientRsState = clientRs.getState();
 
-        Assert.assertEquals(clientRsFirstName, "John");
-        Assert.assertEquals(clientRsLastname, "Doe");
-        Assert.assertEquals(clientRsCity, "San Jose");
-        Assert.assertEquals(clientRsState, "CA");
+        Assert.assertEquals(clientRsFirstName, "John", "Client first name did not match");
+        Assert.assertEquals(clientRsLastname, "Doe", "Client last name did not match");
+        Assert.assertEquals(clientRsCity, "San Jose", "Client's city did not match");
+        Assert.assertEquals(clientRsState, "CA", "Client's state did not match");
     }
 
 
@@ -94,13 +94,13 @@ public class TestParsingUsingPojo {
         String dataHardDiskSize = dataRs.getHardDiskSize();
 
         // Device fields
-        Assert.assertEquals(deviceId, "7");
-        Assert.assertEquals(deviceName, "Apple MacBook Pro 16");
+        Assert.assertEquals(deviceId, "7", "Device ID did not match");
+        Assert.assertEquals(deviceName, "Apple MacBook Pro 16", "Device name did not match");
         // Data fields
-        Assert.assertEquals(dataYear, 2019);
-        Assert.assertEquals(dataPrice, 1849.99);
-        Assert.assertEquals(dataCpuModel, "Intel Core i9");
-        Assert.assertEquals(dataHardDiskSize, "1 TB");
+        Assert.assertEquals(dataYear, 2019, "Device year did not match");
+        Assert.assertEquals(dataPrice, 1849.99, "Device price did not match");
+        Assert.assertEquals(dataCpuModel, "Intel Core i9", "Device CPU model did not match");
+        Assert.assertEquals(dataHardDiskSize, "1 TB", "Device HDD size did not match");
 
     }
 
@@ -143,8 +143,8 @@ public class TestParsingUsingPojo {
 
         System.out.println(gadgetsFiltered);
 
-        Assert.assertEquals(gadgetsRs.size(), 13);
-        Assert.assertEquals(gadgetsFiltered.size(), 2);
+        Assert.assertEquals(gadgetsRs.size(), 13, "The amount of UNFIlTERED gadgets is wrong");
+        Assert.assertEquals(gadgetsFiltered.size(), 2, "The amount of FIlTERED gadgets is wrong");
     }
 
 }

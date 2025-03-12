@@ -58,10 +58,10 @@ public class TestXmlParsing {
         String responseLastName = xmlPath.getString("root.lastName");
         String responseState = xmlPath.getString("root.state");
 
-        Assert.assertEquals(responseCity, "San Jose");
-        Assert.assertEquals(responseFirstName, "John");
-        Assert.assertEquals(responseLastName, "Doe");
-        Assert.assertEquals(responseState, "CA");
+        Assert.assertEquals(responseCity, "San Jose", "Response city did not match");
+        Assert.assertEquals(responseFirstName, "John", "response first name did not match");
+        Assert.assertEquals(responseLastName, "Doe", "Response last name did not match");
+        Assert.assertEquals(responseState, "CA", "Response state did not match");
     }
 
 
