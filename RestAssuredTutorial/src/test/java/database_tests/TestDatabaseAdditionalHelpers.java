@@ -34,6 +34,16 @@ public class TestDatabaseAdditionalHelpers {
 
     }
 
+    @Test(groups = {"db"})
+    public void testDbViews() {
+        //
+
+
+
+
+
+    }
+
     @AfterSuite(groups = {"db"})
     public void tearDown() {
         dbUtils.closeConnection();
