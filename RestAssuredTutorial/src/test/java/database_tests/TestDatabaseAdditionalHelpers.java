@@ -43,10 +43,6 @@ public class TestDatabaseAdditionalHelpers {
         ResultSet resultSet = dbUtils.executeQuery(sqlView, clientGeneralId);
 
         resultSet.next();
-        resultSet.next();
-        resultSet.next();
-        resultSet.next();
-        resultSet.next();
 
         String expectedCurrency = "EUR";
         int expectedAmount = 9000;
