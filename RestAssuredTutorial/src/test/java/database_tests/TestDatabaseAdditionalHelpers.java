@@ -4,6 +4,8 @@ import helpers.DatabaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -35,13 +37,26 @@ public class TestDatabaseAdditionalHelpers {
     }
 
     @Test(groups = {"db"})
-    public void testDbViews() {
-        //
+    public void testDbViews() throws SQLException {
+        String clientGeneralId = "MK-777";
+        String sqlView = "SELECT * FROM view_clients_finances WHERE client_common_id = ?";
+        ResultSet resultSet = dbUtils.executeQuery(sqlView, clientGeneralId);
+
+        resultSet.next();
+        resultSet.next();
+        resultSet.next();
+        resultSet.next();
+        resultSet.next();
+
+        String expectedCurrency = "EUR";
+        int expectedAmount = 9000;
+
+        String dbCurrency = resultSet.getString("currency");
+        int dbAmount = resultSet.getInt("amount");
 
 
-
-
-
+        Assert.assertEquals(dbCurrency, expectedCurrency, "Currencies for the client [ " + clientGeneralId + " ] don't match");
+        Assert.assertEquals(dbAmount, expectedAmount, "Amounts for the client [ " + clientGeneralId + " ] don't match");
     }
 
     @AfterSuite(groups = {"db"})
