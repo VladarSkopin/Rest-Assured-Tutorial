@@ -3,6 +3,8 @@ package schema_validation;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -11,10 +13,15 @@ import static org.hamcrest.Matchers.lessThan;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
+
 public class TestJsonSchemaValidation {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestJsonSchemaValidation.class);
 
     @Test(groups={"smoke"})
     public void testJsonSchemaValidation() {
+
+        logger.info("testJsonSchemaValidation started");
 
         baseURI = "https://reqres.in";
 
@@ -36,7 +43,7 @@ public class TestJsonSchemaValidation {
                 .body(JsonSchemaValidator.matchesJsonSchema(schemaFile))
                 .time(lessThan(3000L));
 
+        logger.info("testJsonSchemaValidation ended");
     }
-
 
 }

@@ -14,7 +14,7 @@
 
         <classes>
             <class name="database_tests.TestDatabaseQueries"/>
-            <class name="database_tests.TestDatabaseUpdates"/>
+            <class name="database_tests.TestDatabaseAdvanced"/>
             <class name="database_tests.TestDatabaseAdditionalHelpers"/>
             <class name="basic_requests.TestHeaderFactory"/>
             <class name="basic_requests.TestApiBasics"/>

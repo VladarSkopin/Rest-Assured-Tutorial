@@ -11,7 +11,7 @@
 
         <classes>
             <class name="database_tests.TestDatabaseQueries"/>
-            <class name="database_tests.TestDatabaseUpdates"/>
+            <class name="database_tests.TestDatabaseAdvanced"/>
             <class name="database_tests.TestDatabaseAdditionalHelpers"/>
         </classes>
     </test>

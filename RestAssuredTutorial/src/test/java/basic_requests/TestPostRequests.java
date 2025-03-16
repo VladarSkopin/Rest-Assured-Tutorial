@@ -170,7 +170,7 @@ public class TestPostRequests {
         Gson gson = new Gson();
         List<Map<String, Object>> jsonList = gson.fromJson(jsonBody, new TypeToken<List<Map<String, Object>>>() {}.getType());
 
-        // Modify a specify value in JSON
+        // Modify a specific value in JSON
         Map<String, Object> firstUser = jsonList.get(0);  // Get the first user in the array
         firstUser.put("username", faker.name().username());  // Change the username
         firstUser.put("firstName", faker.animal().name());
