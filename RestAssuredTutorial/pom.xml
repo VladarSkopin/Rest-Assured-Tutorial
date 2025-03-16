@@ -65,6 +65,23 @@
             <version>8.3.0</version>
         </dependency>
 
+        <!-- SLF4J API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+
+        <!-- Logback Classic (includes SLF4J binding and Logback core) -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+
     </dependencies>
 
 </project>

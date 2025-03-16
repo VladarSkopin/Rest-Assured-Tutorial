@@ -72,11 +72,6 @@ public class TestApiBasics {
 
         long timeAdditional = rs.getTime();
         System.out.println("getTime() = " + timeAdditional);  // 1151
-
-
     }
-
-
-
 
 }

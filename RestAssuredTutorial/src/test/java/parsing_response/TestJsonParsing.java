@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -13,9 +15,12 @@ import static org.hamcrest.Matchers.*;
 
 public class TestJsonParsing {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestJsonParsing.class);
 
     @Test(groups = {"smoke"})
     public void testParseJsonUsingImplicitJsonPath() {
+
+        logger.info("testParseJsonUsingImplicitJsonPath started");
 
         baseURI = "https://reqres.in";
 
@@ -33,11 +38,15 @@ public class TestJsonParsing {
                 .and()
                 .header("Server", "cloudflare")
                 .body("data[0].year", equalTo(2000));
+
+        logger.info("testParseJsonUsingImplicitJsonPath ended");
     }
 
 
     @Test(groups = {"smoke"})
     public void testParseJsonUsingJsonPathWithVariables() {
+
+        logger.info("testParseJsonUsingJsonPathWithVariables started");
 
         baseURI = "https://reqres.in";
 
@@ -70,11 +79,14 @@ public class TestJsonParsing {
         Assert.assertEquals(rsYear5, 2004);
         Assert.assertEquals(rsYear6, 2005);
 
+        logger.info("testParseJsonUsingJsonPathWithVariables ended");
     }
 
 
     @Test(groups = {"smoke"})
     public void testParseJsonUsingJsonObject() {
+
+        logger.info("testParseJsonUsingJsonObject started");
 
         baseURI = "https://reqres.in";
 
@@ -107,6 +119,6 @@ public class TestJsonParsing {
         }
 
 
-
+        logger.info("testParseJsonUsingJsonObject ended");
     }
 }

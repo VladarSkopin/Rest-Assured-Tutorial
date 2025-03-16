@@ -7,6 +7,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import test_data.ClientPojo;
 import test_data.devices_data.DataPojo;
 import test_data.devices_data.DevicePojo;
@@ -21,9 +23,12 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class TestParsingUsingPojo {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestParsingUsingPojo.class);
 
     @Test(groups = {"regression"})
     public void testDeserializationWithPojo() {
+
+        logger.info("testDeserializationWithPojo started");
 
         baseURI = "https://mocktarget.apigee.net";
 
@@ -55,11 +60,15 @@ public class TestParsingUsingPojo {
         Assert.assertEquals(clientRsLastname, "Doe", "Client last name did not match");
         Assert.assertEquals(clientRsCity, "San Jose", "Client's city did not match");
         Assert.assertEquals(clientRsState, "CA", "Client's state did not match");
+
+        logger.info("testDeserializationWithPojo ended");
     }
 
 
     @Test(groups = {"regression"})
     public void testDeserializationWithNestedPojo() {
+
+        logger.info("testDeserializationWithNestedPojo started");
 
         // https://api.restful-api.dev/objects/7
 
@@ -102,12 +111,15 @@ public class TestParsingUsingPojo {
         Assert.assertEquals(dataCpuModel, "Intel Core i9", "Device CPU model did not match");
         Assert.assertEquals(dataHardDiskSize, "1 TB", "Device HDD size did not match");
 
+        logger.info("testDeserializationWithNestedPojo ended");
     }
 
 
 
     @Test(groups = {"regression"})
     public void testDeserializationWithListOfNestedPojo() {
+
+        logger.info("testDeserializationWithListOfNestedPojo started");
 
         // https://api.restful-api.dev/objects
 
@@ -145,6 +157,8 @@ public class TestParsingUsingPojo {
 
         Assert.assertEquals(gadgetsRs.size(), 13, "The amount of UNFIlTERED gadgets is wrong");
         Assert.assertEquals(gadgetsFiltered.size(), 2, "The amount of FIlTERED gadgets is wrong");
+
+        logger.info("testDeserializationWithListOfNestedPojo ended");
     }
 
 }

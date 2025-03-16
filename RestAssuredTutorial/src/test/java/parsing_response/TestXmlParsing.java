@@ -4,17 +4,22 @@ import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 
-
 public class TestXmlParsing {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestParsingUsingPojo.class);
 
     @Test(groups = {"smoke"})
     public void testParseXmlUsingImplicitXmlPath() {
+
+        logger.info("testParseXmlUsingImplicitXmlPath started");
 
         baseURI = "https://mocktarget.apigee.net";
 
@@ -31,11 +36,14 @@ public class TestXmlParsing {
                 .body("root.state", equalTo("CA"))
                 .time(lessThan(3000L));
 
+        logger.info("testParseXmlUsingImplicitXmlPath ended");
     }
 
 
     @Test(groups = {"smoke"})
     public void testParseXmlUsingXmlPathWithVariables() {
+
+        logger.info("testParseXmlUsingXmlPathWithVariables started");
 
         baseURI = "https://mocktarget.apigee.net";
 
@@ -62,9 +70,8 @@ public class TestXmlParsing {
         Assert.assertEquals(responseFirstName, "John", "Response first name did not match");
         Assert.assertEquals(responseLastName, "Doe", "Response last name did not match");
         Assert.assertEquals(responseState, "CA", "Response state did not match");
+
+        logger.info("testParseXmlUsingXmlPathWithVariables ended");
     }
-
-
-
 
 }
