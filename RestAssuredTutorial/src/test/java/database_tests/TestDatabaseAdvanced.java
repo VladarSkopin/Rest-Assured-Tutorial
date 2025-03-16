@@ -5,12 +5,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 public class TestDatabaseAdvanced {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestDatabaseAdvanced.class);
 
     private DatabaseUtils dbUtils;
 
@@ -23,6 +27,9 @@ public class TestDatabaseAdvanced {
 
     @Test(groups = {"db"})
     public void testDbAdvancedQueries() throws SQLException {
+
+        logger.info("testDbAdvancedQueries started");
+
         String clientGeneralId = "MK-654";
 
         // expected db fields in the joined tables
@@ -56,23 +63,25 @@ public class TestDatabaseAdvanced {
         // Ensure that at least one row was returned
         Assert.assertTrue(hasResults, "No results returned for the query");
 
+        logger.info("testDbAdvancedQueries ended");
     }
 
 
     @Test(groups = {"db"})
     public void testDbInsertionDeletion() {
 
+        logger.info("testDbInsertionDeletion started");
+
         // Clear the old data first, just in case
         String clearQuery = "DELETE FROM financial_data WHERE client_common_id = ?";
         int rowsCleared = dbUtils.executeUpdate(clearQuery, "MK-XXX");
-        // TODO: Log cleared data at the start of the test
-
+        logger.debug("Cleared data at the start of the test - rowsCleared = {}", rowsCleared);
 
         String tableName = "financial_data";
 
         // Before insertion, the number of rows should be = 20
         int rowCountBeforeInsertion = dbUtils.getRowCount(tableName);
-        // TODO: Log current rowCount - "Row count BEFORE adding financial data"
+        logger.debug("Row count BEFORE adding financial data = {}", rowCountBeforeInsertion);
 
         // Insert new financial data
         String insertQuery = "INSERT INTO financial_data (client_common_id, created, currency, amount, year, quarter) VALUES (?, ?, ?, ?, ?, ?)";
@@ -85,7 +94,7 @@ public class TestDatabaseAdvanced {
 
         // After insertion, the number of rows should be 25
         int rowCountAfterInsertion = dbUtils.getRowCount(tableName);
-        // TODO: Log current rowCount - "Row count AFTER adding financial data"
+        logger.debug("Row count AFTER adding financial data = {}", rowCountAfterInsertion);
         //int expectedRowCount = rowCount + rowsInserted;
         int expectedRowCount = rowCountBeforeInsertion + rowsInserted;
         Assert.assertEquals(rowCountAfterInsertion, expectedRowCount, "Row count AFTER adding financial data does not match the expected value");
@@ -97,8 +106,10 @@ public class TestDatabaseAdvanced {
 
         // After deletion, the number of rows should be back to 20
         int rowCountAfterDeletion = dbUtils.getRowCount(tableName);
-        // TODO: Log current rowCount - "Row count AFTER DELETING financial data"
+        logger.debug("Row count AFTER DELETING financial data = {}", rowCountAfterDeletion);
         Assert.assertEquals(rowCountAfterDeletion, rowCountBeforeInsertion, "Row count AFTER DELETING financial data does not match the expected value");
+
+        logger.info("testDbInsertionDeletion ended");
     }
 
     @AfterSuite(groups = {"db"})

@@ -3,12 +3,16 @@ package database_tests;
 import helpers.DatabaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 
 
 public class TestDatabaseQueries {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestDatabaseQueries.class);
 
     private DatabaseUtils dbUtils;
 
@@ -20,6 +24,8 @@ public class TestDatabaseQueries {
 
     @Test(groups = {"db"})
     public void testClientDbConsistency() {
+
+        logger.info("testClientDbConsistency started");
 
         String clientGeneralId = "'MK-123'";
         // expected db fields in alex.clients table
@@ -45,11 +51,15 @@ public class TestDatabaseQueries {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        logger.info("testClientDbConsistency ended");
     }
 
 
     @Test(groups = {"db"})
     public void testFinancialDataDbConsistency() {
+
+        logger.info("testClientDbConsistency started");
 
         String clientCommonId = "'MK-123'";
         // expected db fields in alex.financial_data table
@@ -77,6 +87,8 @@ public class TestDatabaseQueries {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        logger.info("testClientDbConsistency ended");
     }
 
 

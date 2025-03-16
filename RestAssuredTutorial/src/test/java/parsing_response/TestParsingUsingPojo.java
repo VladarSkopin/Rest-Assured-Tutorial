@@ -39,10 +39,11 @@ public class TestParsingUsingPojo {
                 .when()
                 .get("/json");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 
@@ -81,10 +82,11 @@ public class TestParsingUsingPojo {
                 .when()
                 .get("/objects/7");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 
@@ -132,10 +134,11 @@ public class TestParsingUsingPojo {
                 .when()
                 .get("/objects");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 

@@ -30,12 +30,13 @@ public class TestXsdSchemaValidation {
                 .when()
                 .get("/xml");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
                 //.body(matchesXsdInClasspath("get_schema.xsd"))
                 .body(RestAssuredMatchers.matchesXsd(xsdSchema))
-                .log().status()
-                .log().headers()
-                .log().body()
                 .time(lessThan(3000L));
 
         logger.info("testXsdSchemaValidation ended");

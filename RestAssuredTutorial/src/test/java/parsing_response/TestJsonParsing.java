@@ -29,10 +29,11 @@ public class TestJsonParsing {
                 .when()
                 .get("api/unknown");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .header("Content-Type", "application/json; charset=utf-8")
                 .and()
@@ -54,6 +55,10 @@ public class TestJsonParsing {
                 .contentType(ContentType.JSON)
                 .when()
                 .get("api/unknown");
+
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
 
         int rsStatusCode = response.statusCode();
         String rsContentType = response.header("Content-Type");
@@ -98,6 +103,9 @@ public class TestJsonParsing {
                 .extract()
                 .response();
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
 
         JSONObject jsonObject = new JSONObject(response.asString());
 

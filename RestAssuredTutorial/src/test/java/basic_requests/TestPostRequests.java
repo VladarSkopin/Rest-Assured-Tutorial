@@ -7,6 +7,8 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import test_data.petstore.CategoryPojo;
 import test_data.petstore.PetOrderCategoryTagPojo;
 import test_data.petstore.PetOrderPojo;
@@ -26,10 +28,14 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class TestPostRequests {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestPostRequests.class);
+
     Faker faker = new Faker();
 
     @Test(groups = {"regression"})
     public void testPostRequestWithPojo() {
+
+        logger.info("testPostRequestWithPojo started");
 
         // https://petstore.swagger.io/v2/store/order
 
@@ -47,7 +53,6 @@ public class TestPostRequests {
                 .contentType(ContentType.JSON)
                 .body(petOrderRq);
 
-
         Response response = request
                 .when()
                 .log().uri()
@@ -55,18 +60,22 @@ public class TestPostRequests {
                 .log().body()
                 .post("v2/store/order");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 
+        logger.info("testPostRequestWithPojo ended");
     }
 
 
     @Test(groups = {"regression"})
     public void testPostRequestWithNestedPojo() {
+
+        logger.info("testPostRequestWithNestedPojo started");
 
         // https://petstore.swagger.io/v2/pet
 
@@ -113,18 +122,22 @@ public class TestPostRequests {
                 .log().body()
                 .post("v2/pet");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 
+        logger.info("testPostRequestWithNestedPojo ended");
     }
 
 
     @Test(groups = {"regression"})
     public void testPostRequestWithExternalFile() throws IOException {
+
+        logger.info("testPostRequestWithExternalFile started");
 
         // https://petstore.swagger.io/v2/user/createWithArray
 
@@ -145,19 +158,23 @@ public class TestPostRequests {
                 .when()
                 .post("v2/user/createWithArray");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 
+        logger.info("testPostRequestWithExternalFile ended");
     }
 
 
 
     @Test(groups = {"regression"})
     public void testPostRequestWithModifiedExternalFile() throws IOException {
+
+        logger.info("testPostRequestWithModifiedExternalFile started");
 
         // https://petstore.swagger.io/v2/user/createWithArray
 
@@ -194,14 +211,15 @@ public class TestPostRequests {
                 .when()
                 .post("v2/user/createWithArray");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .time(lessThan(3000L));
 
-
+        logger.info("testPostRequestWithModifiedExternalFile ended");
     }
 
 }
