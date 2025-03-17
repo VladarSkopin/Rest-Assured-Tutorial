@@ -1,16 +1,32 @@
 <configuration>
+    <!-- Date and time formats -->
+    <timestamp key="log_file_timestamp" datePattern="yyyy-MM-dd"/>
+    <timestamp key="log_entry_timestamp" datePattern="HH:mm:ss.SSS"/>
+
+    <!-- Properties for file path -->
+    <property name="LOG_DIR" value="logs"/>
+    <property name="LOG_FILE" value="${LOG_DIR}/test_log_${log_file_timestamp}.log"/>
+
+    <!-- Appender for file output -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_FILE}</file>
+        <append>false</append>
+        <immediateFlush>true</immediateFlush>
+        <encoder charset="UTF-8">
+            <pattern>%d{log_entry_timestamp} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <!-- Appender for console output -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{log_entry_timestamp} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <!-- Root logger level and appender -->
     <root level="debug">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
-
-    <!-- Specific logger levels (optional) -->
-    <logger name="com.example" level="info" />
 </configuration>
