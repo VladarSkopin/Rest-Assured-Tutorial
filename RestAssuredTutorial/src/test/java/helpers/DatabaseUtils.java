@@ -1,5 +1,8 @@
 package helpers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseUtils.class);
 
     private static DatabaseUtils instance;
 
@@ -24,9 +29,9 @@ public class DatabaseUtils {
 
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            System.out.println("Database connection established.");
+            logger.info("Database connection established.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils constructor occurred: ", e);
         }
     }
 
@@ -52,7 +57,7 @@ public class DatabaseUtils {
 
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"executeQuery(String query, Object... params)\" method occurred: ", e);
         }
         return resultSet;
     }
@@ -64,7 +69,7 @@ public class DatabaseUtils {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"executeQuery(String query)\" method occurred: ", e);
         }
         return resultSet;
     }
@@ -84,7 +89,7 @@ public class DatabaseUtils {
             // Execute the update
             rowsAffected = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"executeUpdate(String query, Object... params)\" method occurred: ", e);
         }
 
         return rowsAffected;
@@ -98,7 +103,7 @@ public class DatabaseUtils {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             rowsAffected = preparedStatement.executeUpdate(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"executeUpdate(String query)\" method occurred: ", e);
         }
         return rowsAffected;
     }
@@ -115,7 +120,7 @@ public class DatabaseUtils {
                 rowCount = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"getRowCount(String tableName)\" method occurred: ", e);
         }
 
         return rowCount;
@@ -132,7 +137,7 @@ public class DatabaseUtils {
                 values.add(resultSet.getObject(columnName));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"getColumnValues(String query, String columnName)\" method occurred: ", e);
         }
 
         return values;
@@ -142,9 +147,9 @@ public class DatabaseUtils {
     public void closeConnection() {
         try {
             if (connection != null) connection.close();
-            System.out.println("Database connection closed.");
+            logger.info("Database connection closed.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseUtils \"closeConnection()\" method occurred: ", e);
         }
     }
 }

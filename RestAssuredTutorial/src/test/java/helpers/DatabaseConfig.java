@@ -1,10 +1,15 @@
 package helpers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class DatabaseConfig {
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseConfig.class);
+
     private static Properties properties;
 
     static {
@@ -12,7 +17,7 @@ public class DatabaseConfig {
         try (FileInputStream input = new FileInputStream("src/test/resources/config.properties")) {
             properties.load(input);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error in DatabaseConfig occurred: ", e);
         }
     }
 

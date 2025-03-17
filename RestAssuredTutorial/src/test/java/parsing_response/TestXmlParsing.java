@@ -27,10 +27,11 @@ public class TestXmlParsing {
                 .when()
                 .get("/xml");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .statusCode(200)
                 .header("Content-Type", "application/xml; charset=utf-8")
                 .body("root.state", equalTo("CA"))
@@ -51,10 +52,11 @@ public class TestXmlParsing {
                 .when()
                 .get("/xml");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
+
         response.then()
-                .log().status()
-                .log().headers()
-                .log().body()
                 .time(lessThan(3000L));
 
 

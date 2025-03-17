@@ -10,6 +10,8 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +19,13 @@ import java.util.Map;
 
 public class TestHeaderFactory {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestHeaderFactory.class);
+
     @Test(groups={"factory"})
     public void testHeaderFactory() {
+
+        logger.info("testHeaderFactory started");
+
         HeaderFactory headerFactory = new AuthHeaderFactory("cfbadministrator");
 
         Headers headers = headerFactory.createHeaders();
@@ -30,11 +37,16 @@ public class TestHeaderFactory {
 
         Response response = request.get("users?page=2");
         response.then().statusCode(200).time(lessThan(3000L));
+
+        logger.info("testHeaderFactory ended");
     }
 
 
     @Test(groups="regression")
     public void testJsonResponse() {
+
+        logger.info("testJsonResponse started");
+
         baseURI = "https://reqres.in/api";
 
         given()
@@ -47,11 +59,15 @@ public class TestHeaderFactory {
                 .body("data[1].avatar", containsString("-image.jpg"))
                 .log().all()
                 .time(lessThan(3000L));
+
+        logger.info("testJsonResponse ended");
     }
 
 
     @Test(groups = "regression")
     public void testPostRequest() {
+
+        logger.info("testPostRequest started");
 
         String name = "Giang Hương";
         String job = "Sasha's Kitten";
@@ -79,14 +95,17 @@ public class TestHeaderFactory {
                 .when()
                 .post("/api/users");
 
+        logger.debug("Response status code: {}", response.statusCode());
+        logger.debug("Response headers: \n{}", response.headers());
+        logger.debug("Response body: \n{}", response.body().asString());
 
         response.then()
                 .statusCode(201)
                 .body("name", equalTo(name))
                 .body("job", equalTo(job))
                 .body("id", notNullValue())
-                .log().all()
                 .time(lessThan(3000L));
 
+        logger.info("testPostRequest ended");
     }
 }
